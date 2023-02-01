@@ -86,9 +86,10 @@ class Corruption(Model):
              "Total Complain": lambda m: sum([1 for cit in self.schedule.agents if
                                               cit.action == CitizenActions.accept_complain or cit.action == CitizenActions.reject_complain
                                               ]) / self.num_active_citizens(),
-             "Total Accept": lambda m: sum([1 for cit in self.schedule.agents if
+             "Total Accept": lambda m: self.num_active_citizens() and sum([1 for cit in self.schedule.agents if
                                             cit.action == CitizenActions.accept_complain or cit.action == CitizenActions.accept_silent
-                                            ]) / self.num_active_citizens(),
+                                            ]) / self.num_active_citizens() or 0,
+             
              })
 
         # Divide the cops over a network of teams
